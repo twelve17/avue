@@ -26,18 +26,12 @@ export default {
     },
   },
   data() {
-    return {
-      message: {},
-    };
+    return { message: {} };
   },
   apollo: {
     message: {
       query,
-      variables: { id: 2 },
-      update(data) {
-        console.log("data", data);
-        return data ? data.message : undefined;
-      },
+      variables: { id: 1 },
       manual: false,
       result ({ data }, key) {
         console.log('apollo.result() called, key: ', key, ',data:', data)

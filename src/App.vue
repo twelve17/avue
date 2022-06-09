@@ -1,23 +1,18 @@
 <template>
-  <!--
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 in CodeSandbox!" />
-  -->
   <p>
     Message: {{ message }}<br />
-    Computed MessageLetter: {{ messageLetter }}<br />
+    Computed Message Substring: {{ messageLetter }}<br />
   </p>
 </template>
 
 
 
 <script>
-//import HelloWorldVue from "./components/HelloWorld.vue";
 import gql from "graphql-tag";
 
 const query = gql`
   query getMessage($id: Int!) {
-    message3(id: $id) {
+    message(id: $id) {
       id
       text
     }
@@ -26,19 +21,14 @@ const query = gql`
 
 export default {
   name: "App",
-  /*
-  components: {
-    HelloWorld: HelloWorldVue,
-  },
-  */
   computed: {
     messageLetter() {
-      return "hi";
+      return this.message?.text?.substr(0, 2);
     },
   },
   data() {
     return {
-      message: "_default_",
+      message: {},
     };
   },
   apollo: {
@@ -48,6 +38,11 @@ export default {
       update(data) {
         console.log("data", data);
         return data ? data.message : undefined;
+      },
+      manual: false,
+      result ({ data }) {
+        console.log('We got some result!', data)
+        this.message = data.message;
       },
     },
   },

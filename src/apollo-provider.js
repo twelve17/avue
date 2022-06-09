@@ -2,11 +2,7 @@ import { ApolloClient, InMemoryCache } from "@apollo/client/core";
 import { createApolloProvider } from "@vue/apollo-option";
 import { SchemaLink } from "apollo-link-schema";
 
-import {
-  addMocksToSchema,
-  createMockStore,
-  mockServer
-} from "@graphql-tools/mock";
+import { addMocksToSchema, } from "@graphql-tools/mock";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 
 /*
@@ -42,6 +38,7 @@ const mocks = {
   })
 };
 
+/*
 const resolvers = (store) => ({
   Query: {
     message: (obj, args) => {
@@ -52,6 +49,7 @@ const resolvers = (store) => ({
 
   //Mutation: () => ...
 });
+*/
 
 const schema = makeExecutableSchema({ typeDefs });
 

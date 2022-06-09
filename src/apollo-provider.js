@@ -14,30 +14,22 @@ const typeDefs = `
   }
 `;
 
-const message = (id) => ({
-  id,
-  text: "Hi"
+const resolvers = () => ({
+  Query: {
+    message: (_, args) => ({ 
+      id: args.id,
+      text: "Hello World"
+    })
+  }
 });
-
-const mocks = {
-  Query: () => ({
-    message: message(1)
-  })
-};
 
 const schema = makeExecutableSchema({ typeDefs });
-
-const schemaWithMocks = addMocksToSchema({
-  schema,
-  mocks
-});
-
-const apolloCache = new InMemoryCache(window.__APOLLO_STATE__);
+const schemaWithMocks = addMocksToSchema({ schema, resolvers });
 
 const apolloClient = () =>
   new ApolloClient({
     link: new SchemaLink({ schema: schemaWithMocks, validate: false }),
-    cache: apolloCache,
+    cache: new InMemoryCache(window.__APOLLO_STATE__)
   });
 
 export const apolloProvider = () =>

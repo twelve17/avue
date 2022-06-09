@@ -11,6 +11,9 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 
 /*
 import { makeExecutableSchema, addMockFunctionsToSchema } from "graphql-tools";
+*/
+
+/*
 const schema = makeExecutableSchema({ typeDefs });
 const schemaWithMocks = addMockFunctionsToSchema({
   schema,
@@ -34,7 +37,9 @@ const message = (id) => ({
 });
 
 const mocks = {
-  message: () => message(1)
+  Query: () => ({
+    message: message(1)
+  })
 };
 
 const resolvers = (store) => ({
@@ -52,15 +57,17 @@ const schema = makeExecutableSchema({ typeDefs });
 
 const schemaWithMocks = addMocksToSchema({
   schema,
-  resolvers
-});
-
-const schemaWithMocks2 = addMocksToSchema({
-  schema,
   mocks
 });
 
-console.log("schemaWithMocks", schemaWithMocks);
+/*
+const schemaWithMocks = addMockFunctionsToSchema({
+  schema,
+  mocks
+});
+*/
+
+//console.log("schemaWithMocks", schemaWithMocks);
 // const store = createMockStore({ schema });
 
 // addMocksToSchema({ schema });
@@ -69,7 +76,7 @@ const apolloCache = new InMemoryCache(window.__APOLLO_STATE__);
 
 const apolloClient = () =>
   new ApolloClient({
-    link: new SchemaLink({ schema: schemaWithMocks2, validate: false }),
+    link: new SchemaLink({ schema: schemaWithMocks, validate: false }),
     cache: apolloCache,
     ssrMode: true
   });
